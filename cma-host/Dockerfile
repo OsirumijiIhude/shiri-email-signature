@@ -1,4 +1,6 @@
-FROM nginx:alpine
-COPY index.html /usr/share/nginx/html/index.html
-COPY default.conf /etc/nginx/conf.d/default.conf
-EXPOSE 8080
+FROM python:3.12-alpine
+WORKDIR /app
+COPY . /app
+RUN python3 design/polish.py --file /app/index.html
+EXPOSE 80
+CMD ["python3","-m","http.server","80","--directory","/app"]
