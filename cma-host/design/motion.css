@@ -1,0 +1,47 @@
+/* CM&A motion integration. Published effects and licences: MOTION_SOURCES.md. */
+#cma-intro{display:none;position:fixed;inset:0;z-index:90;background:var(--ink,#101318);color:var(--paper,#f5f3ed);place-items:center;pointer-events:none}
+html.cma-intro #cma-intro{display:grid}
+.cma-intro-inner{display:flex;align-items:center;flex-direction:column;gap:42px}
+.cma-intro-logo{width:170px;height:148px;object-fit:contain;mix-blend-mode:screen}
+#cma-skip-intro{position:absolute;bottom:28px;right:var(--gutter,24px);pointer-events:auto;padding:12px 0;background:transparent;font-size:12px;color:var(--muted,#b4b7be);border-bottom:1px solid currentColor}
+/* SpinKit Fold, Copyright (c) 2020 Tobias Ahlin, MIT. Original geometry/timing. */
+.sk-fold{--sk-size:30px;--sk-color:var(--blue,#88afea);width:var(--sk-size);height:var(--sk-size);position:relative;transform:rotateZ(45deg)}
+.sk-fold-cube{float:left;width:50%;height:50%;position:relative;transform:scale(1.1)}
+.sk-fold-cube:before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background-color:var(--sk-color);animation:sk-fold 2.4s infinite linear both;transform-origin:100% 100%}
+.sk-fold-cube:nth-child(2){transform:scale(1.1) rotateZ(90deg)}
+.sk-fold-cube:nth-child(4){transform:scale(1.1) rotateZ(180deg)}
+.sk-fold-cube:nth-child(3){transform:scale(1.1) rotateZ(270deg)}
+.sk-fold-cube:nth-child(2):before{animation-delay:.3s}
+.sk-fold-cube:nth-child(4):before{animation-delay:.6s}
+.sk-fold-cube:nth-child(3):before{animation-delay:.9s}
+@keyframes sk-fold{0%,10%{transform:perspective(140px) rotateX(-180deg);opacity:0}25%,75%{transform:perspective(140px) rotateX(0deg);opacity:1}90%,100%{transform:perspective(140px) rotateY(180deg);opacity:0}}
+/* Motion Primitives TextEffect and TextRoll DOM equivalents. */
+.cma-word{display:inline-block}
+.cma-roll{display:inline-block;line-height:1.4;white-space:nowrap}
+.cma-roll-unit{position:relative;display:inline-block;perspective:10000px;transform-style:preserve-3d;width:auto}
+.cma-roll-front,.cma-roll-back{position:absolute;inset:0;display:inline-block;backface-visibility:hidden;white-space:pre}
+.cma-roll-front{transform-origin:50% 25%;transform:rotateX(0)}
+.cma-roll-back{transform-origin:50% 100%;transform:rotateX(90deg)}
+.cma-roll-width{visibility:hidden;white-space:pre}
+.hero-art{transition:background-color .45s ease-out}
+.hero-description{max-width:375px}
+.work-footer{justify-content:flex-end}
+.client-mark{min-height:88px}
+.brand-wall{grid-template-columns:repeat(4,minmax(0,1fr))}
+.case-dialog .case-hero,.case-gallery figure{backface-visibility:hidden}
+/* Keep native touch scrolling, visible content and static fallbacks. */
+@media(max-width:680px){.brand-wall{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-description{max-width:330px}.cma-intro-logo{width:145px;height:126px}}
+@media(prefers-reduced-motion:reduce){html.cma-intro #cma-intro{display:none!important}.sk-fold-cube:before{animation:none!important}.hero-art{transition:none!important}.cma-word{transform:none!important;filter:none!important;opacity:1!important}}
+
+/* The supplied CM&A wordmark is serif; use the same editorial direction for
+   the whole heading, rather than accenting a random word in each sentence. */
+.hero h1,.section h2,.about h2,.brand-intro h2,.contact h2{font-family:Georgia,'Times New Roman',serif;font-weight:400}
+.hero h1 .serif,.section h2 .serif,.about h2 .serif{font:inherit;letter-spacing:inherit;color:inherit}
+.eyebrow{text-transform:none;letter-spacing:0;font-weight:400;font-size:12px}
+.work>.wrap>.eyebrow,.about>.wrap>.eyebrow,.brands>.wrap>.eyebrow,.services>.wrap>.eyebrow,.contact>.wrap>.eyebrow{display:none}
+.section-head,.about-top{margin-top:0}
+.service summary{display:grid;grid-template-columns:minmax(0,1fr) 22px;gap:16px}
+.work-card:hover .bottle-trio img:first-child{transform:rotate(-12deg) translateY(15px)}
+.work-card:hover .bottle-trio img:nth-child(3){transform:rotate(12deg) translateY(15px)}
+
+.hero-foot{text-transform:none;letter-spacing:0;font-size:11px}
