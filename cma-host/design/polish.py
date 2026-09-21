@@ -20,6 +20,11 @@ NAV = (
 )
 CONTROLS = '''<button class="slide-toggle" id="slide-toggle" type="button" aria-label="Pause automatic project rotation" data-paused="false"><svg class="pause-icon" viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M1 1h2v10H1zM7 1h2v10H7z"/></svg><svg class="play-icon" viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M2 1l7 5-7 5z"/></svg><span id="slide-toggle-label">Pause</span></button>'''
 LINEWORK = '''<!-- cma-linework:start --><svg class="cma-linework" viewBox="0 0 144 96" aria-hidden="true" focusable="false"><path pathLength="1" d="M8 27H98V87H8Z"/><path pathLength="1" d="M27 18H117V78H27Z"/><path pathLength="1" d="M46 9H136V69H46Z"/></svg><!-- cma-linework:end -->'''
+
+SOCIAL_FOOTER = r'''<footer class="footer cma-footer"><div class="wrap"><div class="footer-main"><a class="footer-brand" href="#home" aria-label="CM&A, back to top">CM<span>&amp;</span>A</a><p class="footer-kicker">Independent thinking.<br>Zimbabwean heart.</p><div class="footer-contact-links"><a class="footer-action" href="mailto:tendayi@cma.co.zw" aria-label="Email CM&A"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 5h18v14H3z"/><path d="m4 7 8 6 8-6"/></svg></span><span>Email</span></a><a class="footer-action" href="https://wa.me/263712407662?text=Hi%20CM%26A%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer" aria-label="Chat with CM&A on WhatsApp"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.5 11.6a8.5 8.5 0 0 1-12.6 7.5L3 20.5l1.4-4.7A8.5 8.5 0 1 1 20.5 11.6Z"/><path d="M8.2 7.9c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.8 1.8c.1.3.1.5-.1.7l-.6.8c-.2.2-.1.4 0 .6.7 1.3 1.8 2.3 3.1 3 .2.1.4.1.6-.1l.9-1.1c.2-.2.4-.3.7-.2l1.9.9c.3.1.4.3.4.6 0 .4-.2 1.2-.8 1.7-.6.6-1.4.8-2.4.6-1.1-.2-2.6-.7-4.4-2.3-1.5-1.3-2.5-3-2.8-4-.3-1-.1-1.9.3-2.5Z"/></svg></span><span>WhatsApp</span></a><a class="footer-action" href="https://www.google.com/maps/search/?api=1&amp;query=32%20Aboyne%20Drive%20Newlands%20Harare%20Zimbabwe" target="_blank" rel="noopener noreferrer" aria-label="Open CM&A in Google Maps"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z"/><circle cx="12" cy="10" r="2.3"/></svg></span><span>Google Maps</span></a></div></div><div class="footer-bottom"><p>© 2026 CM&amp;A Advertising &amp; Marketing</p><p>32 Aboyne Drive, Newlands, Harare</p><div><button id="privacy-open">Privacy</button><a href="#home">Back to top</a></div></div></div></footer>'''
+
+WHATSAPP_FLOAT = r'''<a class="whatsapp-float" href="https://wa.me/263712407662?text=Hi%20CM%26A%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer" aria-label="Chat with CM&A on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.6a8.5 8.5 0 0 1-12.6 7.5L3 20.5l1.4-4.7A8.5 8.5 0 1 1 20.5 11.6Z"/><path d="M8.2 7.9c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.8 1.8c.1.3.1.5-.1.7l-.6.8c-.2.2-.1.4 0 .6.7 1.3 1.8 2.3 3.1 3 .2.1.4.1.6-.1l.9-1.1c.2-.2.4-.3.7-.2l1.9.9c.3.1.4.3.4.6 0 .4-.2 1.2-.8 1.7-.6.6-1.4.8-2.4.6-1.1-.2-2.6-.7-4.4-2.3-1.5-1.3-2.5-3-2.8-4-.3-1-.1-1.9.3-2.5Z"/></svg></a>'''
+
 REGISTRY = re.compile(r'<template id="asset-library">.*?</template>', re.S)
 OLD_SCROLL = re.compile(r'  let scheduled=false;function onScroll\(\).*?onScroll\(\);route\(\);', re.S)
 
@@ -73,6 +78,17 @@ def apply(html: str) -> str:
     if html.count(marker) != 1:
         raise ValueError('Expected the original service lead/list boundary.')
     html = html.replace(marker, LINEWORK + marker, 1)
+
+    # Keep the client list honest: product lines are not presented as standalone brands.
+    for non_brand in ('Dr Klin', 'Maxi-Smooth'):
+        html = re.sub(
+            rf'<a class="client-mark"[^>]*>\\s*<span(?: class="classic")?>{re.escape(non_brand)}</span>\\s*</a>',
+            '', html, count=1, flags=re.S
+        )
+    html = replace_once(r'<footer class="footer">.*?</footer>', SOCIAL_FOOTER, html, 'compact footer')
+    if 'class="whatsapp-float"' not in html:
+        html = html.replace('</body>', WHATSAPP_FLOAT + '\\n</body>', 1)
+
     css = (HERE / 'polish.css').read_text(encoding='utf-8')
     javascript = (HERE / 'polish.js').read_text(encoding='utf-8')
     html = html.replace('</head>', '<style id="cma-editorial-style">\n' + css + '</style>\n</head>', 1)
