@@ -5,7 +5,7 @@ RUN apt-get update \
 RUN pip install --no-cache-dir playwright==1.55.0
 WORKDIR /app
 COPY . /app
-RUN python3 redesign/refine.py \
+RUN python3 redesign/refine_v3.py \
  && python3 redesign/build.py --assets-source /app/index.html --output-dir /out
 RUN python3 redesign/test_browser.py /out --chromium /usr/bin/chromium
 
