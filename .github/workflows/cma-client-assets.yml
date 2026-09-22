@@ -1,0 +1,72 @@
+name: CMA client asset transfer
+on:
+  push:
+    branches: [cma-host-20260921]
+    paths: [cma-host/asset-transfer.json]
+permissions:
+  contents: write
+jobs:
+  transfer:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: cma-host-20260921
+      - name: Import only approved website assets
+        run: |
+          python3 - <<'PY'
+          import hashlib, io, json, re, urllib.request, urllib.parse, zipfile
+          from pathlib import Path
+          request_file = Path('cma-host/asset-transfer.json')
+          if not request_file.exists():
+              raise SystemExit('No client transfer requested')
+          spec = json.loads(request_file.read_text())
+          url = spec['url']
+          parts = urllib.parse.urlparse(url)
+          if parts.scheme != 'https' or not parts.hostname.endswith('.oaiusercontent.com'):
+              raise SystemExit('Unexpected transfer host')
+          print('::add-mask::' + url)
+          with urllib.request.urlopen(url, timeout=60) as response:
+              data = response.read(2_000_001)
+          if len(data) > 2_000_000 or hashlib.sha256(data).hexdigest() != spec['sha256']:
+              raise SystemExit('Client asset archive failed integrity check')
+          allowed = {'manifest.json','optima-inline.css','profile-brands-slide.webp'} | {f'profile-logo-{i:02d}.webp' for i in range(1,40)}
+          destination = Path('cma-host/redesign/client_branding')
+          destination.mkdir(parents=True, exist_ok=True)
+          with zipfile.ZipFile(io.BytesIO(data)) as archive:
+              if set(archive.namelist()) != allowed:
+                  raise SystemExit('Unexpected contents in client archive')
+              for name in sorted(allowed):
+                  payload = archive.read(name)
+                  if len(payload) > 1_000_000:
+                      raise SystemExit('Oversized client asset')
+                  (destination/name).write_bytes(payload)
+          manifest = json.loads((destination/'manifest.json').read_text())
+          for record in manifest['logos']+[manifest['slide']]:
+              if hashlib.sha256((destination/record['file']).read_bytes()).hexdigest() != record['sha256']:
+                  raise SystemExit('Logo integrity check failed')
+          if hashlib.sha256((destination/manifest['font']['stylesheet']).read_bytes()).hexdigest() != manifest['font']['stylesheet_sha256']:
+              raise SystemExit('Typography stylesheet integrity check failed')
+          (destination/'transfer-receipt.json').write_text(json.dumps({'archive_sha256':spec['sha256'],'logo_count':len(manifest['logos']),'source_page':7,'original_slide_preserved':True},indent=2)+'\n')
+          request_file.unlink()
+          print('Imported 39 original profile logos, source slide and client typography stylesheet')
+          PY
+      - name: Keep assets with the deployment source
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add cma-host/redesign/client_branding
+          git add -u cma-host/asset-transfer.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Vendor supplied CMA branding assets and remove temporary transfer URL [skip ci]'
+            git push origin HEAD:cma-host-20260921
+          fi
+          git rev-parse HEAD
+      - name: Return source for local browser testing
+        uses: actions/upload-artifact@v4
+        with:
+          name: cma-source-client-assets
+          path: cma-host/
+          retention-days: 1
+          if-no-files-found: error
