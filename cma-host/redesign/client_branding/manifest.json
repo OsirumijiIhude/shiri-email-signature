@@ -1,0 +1,259 @@
+{
+  "profile_source": "CM&A Company Profile.pdf",
+  "profile_sha256": "7fe6d375f60d6d6cb4b558c4e203ff68f1651b822eabc340a2350eb1153253ce",
+  "source_page": 7,
+  "logos": [
+    {
+      "name": "African Distillers Limited",
+      "file": "profile-logo-01.webp",
+      "sha256": "62c42d8df61d53f6e905fc20542a03f1aa5b25483dcdd3f51ac357afcd042c10",
+      "source_page": 7
+    },
+    {
+      "name": "4th Street",
+      "file": "profile-logo-02.webp",
+      "sha256": "23b356b8bcc633b2e357a378c416e1778266830746d78166c8e1ae455f1a2343",
+      "source_page": 7
+    },
+    {
+      "name": "Gold Blend Whisky",
+      "file": "profile-logo-03.webp",
+      "sha256": "a3c4460649c12914cdb6e1ba44b73949bdfc67bd5941e7d803cc175d94ef758a",
+      "source_page": 7
+    },
+    {
+      "name": "Hunter’s",
+      "file": "profile-logo-04.webp",
+      "sha256": "aa00fb0486f1c409a7179cf38d3b0e9506b16b5b5a75206e57fa224fb2cdda20",
+      "source_page": 7
+    },
+    {
+      "name": "Whitestone",
+      "file": "profile-logo-05.webp",
+      "sha256": "de26a6890323bc170ebea8f6fee2c063d3dd49c08038a6a9ae923b6b920327b7",
+      "source_page": 7
+    },
+    {
+      "name": "Amarula",
+      "file": "profile-logo-06.webp",
+      "sha256": "0f9baab5e543eae06c20717530ebeab3ee4a7d1e5504d83af6d352e2c82f8a3a",
+      "source_page": 7
+    },
+    {
+      "name": "illy",
+      "file": "profile-logo-07.webp",
+      "sha256": "57a3c55d2d5e8653201e8e7f4e8439d7d3d3cefe1a47c940bc9201e33dbca4fd",
+      "source_page": 7
+    },
+    {
+      "name": "Nederburg",
+      "file": "profile-logo-08.webp",
+      "sha256": "72979f9c404b23453a5b019f7c88473ae080ec229e7be45253897a85fc3c79a5",
+      "source_page": 7
+    },
+    {
+      "name": "Savanna",
+      "file": "profile-logo-09.webp",
+      "sha256": "eef6ce37ceebbeeb3830d42ada17671ca6e54f49d03afdb5fe819e211beceb05",
+      "source_page": 7
+    },
+    {
+      "name": "Viceroy",
+      "file": "profile-logo-10.webp",
+      "sha256": "6aafb131d62e37af438124d26eaf90212fac1779084a8ae9c748b449931a6657",
+      "source_page": 7
+    },
+    {
+      "name": "Standard Chartered",
+      "file": "profile-logo-11.webp",
+      "sha256": "482d4972d9d73198d9ed8559836e7dba251105cfd9ab9d1a477be49cd2fa03dc",
+      "source_page": 7
+    },
+    {
+      "name": "Hunyani Paper & Packaging",
+      "file": "profile-logo-12.webp",
+      "sha256": "76e976bed33e72c716561a8ea28b511d7d22af2a02837de9a264ac0b6ba40e06",
+      "source_page": 7
+    },
+    {
+      "name": "TechAfrica",
+      "file": "profile-logo-13.webp",
+      "sha256": "4de3f97a76a6ad7c901d251373549a14a7f709cf38ed6e16d8835a56b2a27947",
+      "source_page": 7
+    },
+    {
+      "name": "Kefalos",
+      "file": "profile-logo-14.webp",
+      "sha256": "c5100175249480308937863e99bc3bc88a7801d395e2676fd78869415e187803",
+      "source_page": 7
+    },
+    {
+      "name": "TelOne",
+      "file": "profile-logo-15.webp",
+      "sha256": "5a763f97579772baa484de3dfeeae26091ec1d781ae18852d3bcfe42d2a67857",
+      "source_page": 7
+    },
+    {
+      "name": "Prochem",
+      "file": "profile-logo-16.webp",
+      "sha256": "0041c19e06f004d0cd65c16af71d123606ddfdab62b60c0714c083671f4f71e6",
+      "source_page": 7
+    },
+    {
+      "name": "Dr Klin",
+      "file": "profile-logo-17.webp",
+      "sha256": "61f85bab97ea7069cedcadf06b3451bfa5a81db77a251f271029d02af268b9a5",
+      "source_page": 7
+    },
+    {
+      "name": "Standard Bank",
+      "file": "profile-logo-18.webp",
+      "sha256": "e6a6f1b1f299c6296c21446f895d960003f45c309cff416f44463a72d3996612",
+      "source_page": 7
+    },
+    {
+      "name": "National Building Society",
+      "file": "profile-logo-19.webp",
+      "sha256": "b38a17e6e33df087793f1c3ceae6be44aecd7b750dc2738ef6bb85090001bf2b",
+      "source_page": 7
+    },
+    {
+      "name": "Maxi Smooth",
+      "file": "profile-logo-20.webp",
+      "sha256": "a389e10c2973b10dd0a05ad7ec74df03596b87092e24176e4943db0fe90f8cfd",
+      "source_page": 7
+    },
+    {
+      "name": "Colcom",
+      "file": "profile-logo-21.webp",
+      "sha256": "77bf5f57a96aee19afc329da590a0b73324f9e8eb65b1dae03ca38d92414f1ad",
+      "source_page": 7
+    },
+    {
+      "name": "PSI",
+      "file": "profile-logo-22.webp",
+      "sha256": "e4f16b2bde5c7ba4bfe8a4f82642844e5dfae961112be42991ee2f1e5510fd59",
+      "source_page": 7
+    },
+    {
+      "name": "Cairns Foods",
+      "file": "profile-logo-23.webp",
+      "sha256": "01c06d6bb26b7d3be3a2a13d5164ad98a5194ce42a03dc94591a336e121553d5",
+      "source_page": 7
+    },
+    {
+      "name": "Fairlie House",
+      "file": "profile-logo-24.webp",
+      "sha256": "144191a2417143a272136c1c6b6ca9b0ba0c465b14fe5417b547ffa2414212a3",
+      "source_page": 7
+    },
+    {
+      "name": "biocare",
+      "file": "profile-logo-25.webp",
+      "sha256": "8429eda020466f107bbb84ccacec418b9178242f1c9ebc9ce1f73a231c835baa",
+      "source_page": 7
+    },
+    {
+      "name": "Elegance",
+      "file": "profile-logo-26.webp",
+      "sha256": "e3ab0d2dcb9872bcb6bd25f55cec15729195f0a4ac7b757c22a386bc683309ab",
+      "source_page": 7
+    },
+    {
+      "name": "Zimbabwe Project",
+      "file": "profile-logo-27.webp",
+      "sha256": "6bad16135cb02b25a22fa1382b6db7947cee6a3d5de144028bf5e5394114bb26",
+      "source_page": 7
+    },
+    {
+      "name": "Nestlé",
+      "file": "profile-logo-28.webp",
+      "sha256": "90e46930a642f178cf73fd7404fc549821ab21c54308cde8a10d05604b2fba53",
+      "source_page": 7
+    },
+    {
+      "name": "Cerevita",
+      "file": "profile-logo-29.webp",
+      "sha256": "0ec4af2e011d07942108a775c23bd48a6b9b0c24c419fabd0ebfad64da61031c",
+      "source_page": 7
+    },
+    {
+      "name": "Nescafé",
+      "file": "profile-logo-30.webp",
+      "sha256": "f792ed6ff00cb57988c420f5e2b09e14aa5d0a26fda31dc786edb18e356c6eba",
+      "source_page": 7
+    },
+    {
+      "name": "Irvine’s",
+      "file": "profile-logo-31.webp",
+      "sha256": "1f82e90e498dcdfdccf88618a11e805fc1ba0d78b7cf47d9aefbc6a7aebe67a8",
+      "source_page": 7
+    },
+    {
+      "name": "Greenwood Wholesalers & Pharmacies",
+      "file": "profile-logo-32.webp",
+      "sha256": "98b878a62d93e362866a0ef8c61c54c9823c5e081d5a7bdea7ac3ccc9b807642",
+      "source_page": 7
+    },
+    {
+      "name": "killem",
+      "file": "profile-logo-33.webp",
+      "sha256": "62c153edf60014029c512713815d58d7f5ec27715fb26689f407f7705bb6d216",
+      "source_page": 7
+    },
+    {
+      "name": "choats",
+      "file": "profile-logo-34.webp",
+      "sha256": "b381847c14079ef402761ed40e636586377710fb670c887728987f765cff765b",
+      "source_page": 7
+    },
+    {
+      "name": "Presto",
+      "file": "profile-logo-35.webp",
+      "sha256": "ee2aef97cee8457286a343c8983a9c2f1fc4a8fcf5067ac2cc64db1383ecac24",
+      "source_page": 7
+    },
+    {
+      "name": "African Sun",
+      "file": "profile-logo-36.webp",
+      "sha256": "9f3915bf09c791b867ee48fa8d9f5e621e4388bdf5beec52179564f160e88c8b",
+      "source_page": 7
+    },
+    {
+      "name": "Nestlé EveryDay",
+      "file": "profile-logo-37.webp",
+      "sha256": "b6f7974c062b0f2b68ecbeaa564331f29e400535498b1379f1b3ab19705992b4",
+      "source_page": 7
+    },
+    {
+      "name": "Terranox",
+      "file": "profile-logo-38.webp",
+      "sha256": "0db4c93c1dbc687118c19ab28511af5a1a798af3d8d189e736a36709580df170",
+      "source_page": 7
+    },
+    {
+      "name": "Kimberly-Clark",
+      "file": "profile-logo-39.webp",
+      "sha256": "cfb462604c87f8a1c4967623511feb5d46f2822d762e8425d9c04285e9efe479",
+      "source_page": 7
+    }
+  ],
+  "slide": {
+    "file": "profile-brands-slide.webp",
+    "width": 1684,
+    "height": 1191,
+    "sha256": "b52c4f3b1f3daf41b9fdad0b0993a5c1e3433d378bedd7540d914cfc05d45180"
+  },
+  "font": {
+    "family": "Optima",
+    "source_id": "1li7fRVVBViGosUVwf91iVJRd8aJhgQzw",
+    "source_sha256": "1033090a681ea6b7f672febe9e23a91ae6ee06df645cd6efda4a8c1d49975803",
+    "weights": [
+      400,
+      700
+    ],
+    "stylesheet": "optima-inline.css",
+    "stylesheet_sha256": "a1bfa12447103415c52117918ce6c69be435b8930708517551f4d4ed5c72c330"
+  },
+  "licensing_note": "Client supplied the typeface for this website. No independent proof of a webfont licence was supplied; the font source copyright is retained in its name table. Confirm the appropriate web use rights with CM&A."
+}
