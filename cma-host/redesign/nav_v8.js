@@ -15,6 +15,9 @@ function setTrackedActive(id){
 }
 function track(){
   trackedFrame=0;
+  // Opening a modal or the mobile menu must not change the section selected
+  // underneath it. Recalculate when the dialog closes.
+  if(document.querySelector('dialog[open]'))return;
   const header=document.querySelector('.header');
   const headerHeight=header?header.getBoundingClientRect().height:0;
   const viewport=window.innerHeight||document.documentElement.clientHeight;
