@@ -5,9 +5,9 @@ RUN apt-get update \
 RUN pip install --no-cache-dir playwright==1.55.0 Pillow==12.3.0
 WORKDIR /app
 COPY . /app
-RUN python3 redesign/refinement_v6.py --assets-source /app/index.html --output-dir /out
-RUN python3 redesign/test_polish_v6.py /out --chromium /usr/bin/chromium \
- && python3 redesign/refinement_v6.py --package-only --output-dir /out
+RUN python3 redesign/brand_nav_v7.py --assets-source /app/index.html --output-dir /out
+RUN python3 redesign/run_v7_checks.py /out --chromium /usr/bin/chromium \
+ && python3 redesign/brand_nav_v7.py --package-only --output-dir /out
 
 FROM nginx:alpine
 COPY --from=build /out/ /usr/share/nginx/html/
