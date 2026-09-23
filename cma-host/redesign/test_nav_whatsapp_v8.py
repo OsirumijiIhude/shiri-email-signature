@@ -36,11 +36,12 @@ def run(directory:Path,chromium='/usr/bin/chromium'):
         check(f'{width}: v8 identity',page.locator('meta[name=cma-build]').get_attribute('content')==VERSION)
         check(f'{width}: no horizontal overflow',page.evaluate('document.documentElement.scrollWidth<=innerWidth'))
         # Forward and backward scroll proves that tracking works past Studio and on Services.
+        nav_selector='.nav-links' if width>=768 else '.menu-list'
         for id in ('work','studio','services','contact'):
-          go(page,id);check(f'{width}: forward highlights {id}',active(page)=='#'+id,active(page))
-          check(f'{width}: exactly one desktop current after {id}',page.locator('.nav-links a[aria-current=location]').count()==1)
+          go(page,id);check(f'{width}: forward highlights {id}',active(page,nav_selector)=='#'+id,active(page,nav_selector))
+          check(f'{width}: exactly one current item after {id}',page.locator(nav_selector+' a[aria-current=location]').count()==1)
         for id in ('services','studio','work'):
-          go(page,id);check(f'{width}: reverse highlights {id}',active(page)=='#'+id,active(page))
+          go(page,id);check(f'{width}: reverse highlights {id}',active(page,nav_selector)=='#'+id,active(page,nav_selector))
         # Services direct link is the previously reported failure path.
         page.evaluate('scrollTo(0,0)');page.wait_for_timeout(180)
         if width>=768:
