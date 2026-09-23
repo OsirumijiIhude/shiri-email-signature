@@ -1,0 +1,49 @@
+name: Import verified CMA logo and navigation update
+on:
+  push:
+    branches: [cma-host-20260921]
+    paths: [.github/workflows/cma-v7-import.yml]
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify and apply the exact reviewed patch
+        env:
+          PATCH_URL: 'https://sdmntprnznorth.oaiusercontent.com/files/00000000-2f4c-820b-8035-db71426ff61d/raw?se=2026-09-23T18%3A48%3A04Z&sp=r&sv=2026-02-06&sr=b&scid=b407463b-9953-5bfe-9849-d898ed74591e&skoid=cb94e22a-e3df-4e6a-9e17-1696f40fa435&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-23T16%3A19%3A44Z&ske=2026-09-24T16%3A19%3A44Z&sks=b&skv=2026-02-06&sig=KlV1FDa8iWEst43Zt57bd7AV%2B/1EMvoPnGc2tBZDL1g%3D'
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import os,io,json,hashlib,urllib.request,zipfile
+          url=os.environ['PATCH_URL'];print('::add-mask::'+url)
+          with urllib.request.urlopen(url,timeout=60) as r:data=r.read(2000001)
+          if hashlib.sha256(data).hexdigest()!='052468c98947cf468e2d9f2ae76e7e5e39c937d1d61a19731c4a44d5c18e2525':raise SystemExit('Patch integrity failure')
+          base={'Dockerfile':'26461a4ecb86c0c697d8e6414b1d052869e5138f85d76eed1fde38cb35d5ae12','default.conf':'262afc1f363ee44fa564e3a7a65d32fd1fff1874a9673f8de77894b5f05c9ba8'}
+          root=Path('cma-host')
+          with zipfile.ZipFile(io.BytesIO(data)) as z:
+              manifest=json.loads(z.read('PATCH_MANIFEST.json'))
+              if len(manifest)!=11 or set(z.namelist())!=set(manifest)|{'PATCH_MANIFEST.json'}:raise SystemExit('Unexpected patch entries')
+              for name,expected in manifest.items():
+                  rel=Path(name)
+                  if rel.is_absolute() or '..' in rel.parts or not(name in base or name.startswith('redesign/')):raise SystemExit('Unsafe path')
+                  payload=z.read(name)
+                  if hashlib.sha256(payload).hexdigest()!=expected:raise SystemExit('File integrity failure')
+                  dest=root/rel
+                  if dest.exists() and hashlib.sha256(dest.read_bytes()).hexdigest() not in {expected,base.get(name)}:raise SystemExit('Concurrent source edit: '+name)
+              for name in manifest:
+                  dest=root/name;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(z.read(name));print('Applied',name)
+          Path('.github/workflows/cma-source-snapshot-v7.yml').unlink(missing_ok=True)
+          Path('.github/workflows/cma-v7-import.yml').unlink()
+          PY
+      - name: Commit the complete update without changing unrelated files
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add cma-host/Dockerfile cma-host/default.conf cma-host/redesign/brand_nav_v7.py cma-host/redesign/nav_v7.js cma-host/redesign/test_brand_nav_v7.py cma-host/redesign/run_v7_checks.py cma-host/redesign/approved_logos_v7
+          git add -u .github/workflows
+          git commit -m 'Apply approved CMA brand replacements and restore visible scroll navigation [skip ci]'
+          git push origin HEAD:cma-host-20260921
+          git rev-parse HEAD
