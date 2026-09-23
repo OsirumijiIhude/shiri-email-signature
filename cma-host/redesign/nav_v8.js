@@ -42,9 +42,20 @@ document.addEventListener('click',event=>{
   if(!link)return;
   const id=(link.getAttribute('href')||'').slice(1);
   if(!trackedSectionIds.includes(id))return;
+  const target=document.getElementById(id);
+  if(!target)return;
+  // Own the anchor scroll. Native hash scrolling can be interrupted when the
+  // mobile dialog closes, leaving the previous section selected.
+  event.preventDefault();
+  const header=document.querySelector('.header');
+  const headerHeight=header?header.getBoundingClientRect().height:0;
+  const top=Math.max(0,trackedDocumentTop(target)-headerHeight-8);
+  if(location.hash!=='#'+id)history.pushState(null,'','#'+id);
+  window.scrollTo(0,top);
   setTrackedActive(id);
   requestAnimationFrame(()=>requestAnimationFrame(track));
-  setTimeout(track,180);
+  setTimeout(track,80);
+  setTimeout(track,250);
   setTimeout(track,650);
 });
 for(const dialog of document.querySelectorAll('dialog')){
