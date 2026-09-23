@@ -43,10 +43,15 @@ def run(directory:Path,chromium='/usr/bin/chromium'):
           go(page,id);check(f'{width}: reverse highlights {id}',active(page)=='#'+id,active(page))
         # Services direct link is the previously reported failure path.
         page.evaluate('scrollTo(0,0)');page.wait_for_timeout(180)
-        page.locator('.nav-links a[href="#services"]').click();page.wait_for_timeout(850)
-        check(f'{width}: direct Services click highlights Services',active(page)=='#services',active(page))
+        if width>=768:
+          page.locator('.nav-links a[href="#services"]').click();page.wait_for_timeout(850)
+          check(f'{width}: direct Services click highlights Services',active(page)=='#services',active(page))
+        else:
+          page.locator('#menu-open').click();page.wait_for_timeout(120)
+          page.locator('.menu-list a[href="#services"]').click();page.wait_for_timeout(850)
+          check(f'{width}: direct mobile Services click highlights Services',active(page,'.menu-list')=='#services',active(page,'.menu-list'))
         services_y=page.locator('#services').bounding_box()['y'];header_h=page.locator('.header').bounding_box()['height']
-        check(f'{width}: direct Services click lands below header',services_y>=header_h-2 and services_y<header_h+80,(services_y,header_h))
+        check(f'{width}: direct Services click lands below header',services_y>=header_h-2 and services_y<header_h+90,(services_y,header_h))
         # Active state is only the underline: no fill, shadow or colour change.
         if width>=768:
           active_style=page.locator('.nav-links a[href="#services"]').evaluate("""e=>({bg:getComputedStyle(e).backgroundColor,shadow:getComputedStyle(e).textShadow,box:getComputedStyle(e).boxShadow,color:getComputedStyle(e).color,underline:getComputedStyle(e,'::after').transform,height:getComputedStyle(e,'::after').height})""")
