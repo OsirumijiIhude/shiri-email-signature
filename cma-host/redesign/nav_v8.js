@@ -61,6 +61,4 @@
     new MutationObserver(schedule).observe(document.body,{attributes:true,attributeFilter:['open','hidden'],subtree:true});
   }
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{resolve();setTimeout(resolve,80);});
-  resolve();
-  setTimeout(resolve,80);
-})();
+  // Legacy code after this injected block still calls track(); expose the resolver deliberately.\n  window.track=resolve;\n  window.scheduleTrack=schedule;\n  resolve();\n  setTimeout(resolve,80);\n})();
